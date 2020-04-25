@@ -1,0 +1,26 @@
+<nb-card>
+  <nb-card-body>
+    <div class="container">
+      <h1>LOGIN</h1>
+      <form class="input-container" #form="ngForm">
+        <nb-form-field>
+          <input nbInput fullWidth name="email" type="text" placeholder="Email"
+                 [(ngModel)]="user.email" #email=ngModel required>
+        </nb-form-field>
+        <span class="require-notification" *ngIf="!validateInput(email)">Email is required!</span>
+        <nb-form-field>
+          <input nbInput fullWidth name="password" [type]="getPasswordInputType()" placeholder="Password"
+                 [(ngModel)]="user.password" #password=ngModel required>
+          <button nbSuffix nbButton ghost (click)="toggleShowPassword()">
+            <nb-icon [icon]="getPasswordIcon()" pack="eva"></nb-icon>
+          </button>
+        </nb-form-field>
+        <span class="require-notification" *ngIf="!validateInput(password)">Password is required!</span>
+        <button class="submitButton" nbButton fullWidth status="primary" (click)="submit()">LOG IN</button>
+      </form>
+      <nb-alert *ngIf="showAuthError" status="danger">
+        Incorrect login or password!
+      </nb-alert>
+    </div>
+  </nb-card-body>
+</nb-card>

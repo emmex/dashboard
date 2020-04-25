@@ -1,0 +1,3 @@
+<button nbButton ghost status="primary" *ngIf="!isAuthenticated" routerLink="/login">Sign in</button>
+<button nbButton ghost status="primary" *ngIf="!isAuthenticated">Sign up</button>
+<button nbButton ghost status="primary" *ngIf="isAuthenticated" (click)="logout()">Logout</button>
