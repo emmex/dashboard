@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm, NgModel} from '@angular/forms';
 import {AuthService} from '../../service/auth.service';
 import {Router} from '@angular/router';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -47,7 +48,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.user.email, this.user.password).subscribe(() => {
         this.router.navigate(['']);
       }, error => {
-        if (error === 'Unauthorized') {
+        if (error instanceof HttpErrorResponse && error.status === 401) {
           this.showAuthError = true;
         }
       });
