@@ -1,0 +1,44 @@
+<nb-card>
+  <nb-card-body>
+    <div class="form-container">
+      <h1>REGISTRATION</h1>
+      <form #form="ngForm">
+        <input nbInput fullWidth name="firstName" type="text" placeholder="First name"
+               [(ngModel)]="user.firstName" #firstName=ngModel required>
+        <span class="input-error-notification" *ngIf="!validateInput(firstName)">First name is required</span>
+        <input nbInput fullWidth name="lastName" type="text" placeholder="Last name"
+               [(ngModel)]="user.lastName" #lastName=ngModel required>
+        <span class="input-error-notification" *ngIf="!validateInput(lastName)">Last name is required</span>
+        <input nbInput fullWidth name="email" type="text" placeholder="Email"
+               [(ngModel)]="user.email" #email=ngModel required email>
+        <span *ngIf="!validateInput(email)">
+          <span class="input-error-notification" *ngIf="email.errors.required">Email is required</span>
+          <span class="input-error-notification" *ngIf="email.errors.email">Invalid email format</span>
+        </span>
+        <nb-form-field>
+          <input nbInput fullWidth name="password" type="password" placeholder="Password"
+                 [(ngModel)]="user.password" #password=ngModel #passwordInput required>
+          <button type="button" nbSuffix nbButton ghost (click)="toggleShowPassword(passwordInput)">
+            <nb-icon [icon]="getPasswordIcon(passwordInput)" pack="eva"></nb-icon>
+          </button>
+        </nb-form-field>
+        <span class="input-error-notification" *ngIf="!validateInput(password)">Password is required</span>
+        <nb-form-field>
+          <input nbInput fullWidth name="confirmedPassword" type="password" placeholder="Confirm password"
+                 [(ngModel)]="confirmedPasswordValue" #confirmedPassword=ngModel #confirmedPasswordInput required>
+          <button type="button" nbSuffix nbButton ghost (click)="toggleShowPassword(confirmedPasswordInput)">
+            <nb-icon [icon]="getPasswordIcon(confirmedPasswordInput)" pack="eva"></nb-icon>
+          </button>
+        </nb-form-field>
+        <span *ngIf="!validateInput(confirmedPassword)">
+        <span class="input-error-notification" *ngIf="confirmedPassword.errors.required">Confirmed password is required</span>
+        <span class="input-error-notification" *ngIf="confirmedPassword.errors.passwordUnconfirmed">Password mismatch</span>
+        </span>
+        <button class="submitButton" nbButton fullWidth status="primary" (click)="submit()">REGISTER</button>
+      </form>
+      <nb-alert class="error-alert" status="danger" *ngIf="errorMessage != null">
+        {{errorMessage}}
+      </nb-alert>
+    </div>
+  </nb-card-body>
+</nb-card>

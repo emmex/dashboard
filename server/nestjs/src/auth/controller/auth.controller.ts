@@ -1,15 +1,17 @@
-import {Controller, Get, Post, Request, UseGuards} from '@nestjs/common';
+import {Body, Controller, Get, Post, Request, UseGuards} from '@nestjs/common';
 import {LoginGuard} from "../guard/login.guard";
+import {User} from '../../user/entity/user.entity';
+import {UserService} from '../../user/service/user.service';
 
-@Controller('/auth')
+@Controller('/api/auth')
 export class AuthController {
 
-  constructor() {
+  constructor(private userService: UserService) {
   }
 
   @UseGuards(LoginGuard)
   @Post('/login')
-  async login(@Request() request) {
+  async login() {
     return;
   }
 
@@ -18,8 +20,13 @@ export class AuthController {
     request.session.destroy();
   }
 
+  @Post('/register')
+  async register(@Body() user: User) {
+    await this.userService.register(user);
+  }
+
   @Get('/check-session')
-  getProfile(@Request() request) {
+  checkSession(@Request() request): boolean {
     return request.session?.passport?.user != null;
   }
 

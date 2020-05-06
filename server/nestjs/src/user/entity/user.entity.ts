@@ -1,3 +1,4 @@
+import {IsEmail, IsNotEmpty} from 'class-validator';
 import {Column, Entity, ObjectID, PrimaryGeneratedColumn} from 'typeorm';
 
 @Entity()
@@ -7,18 +8,22 @@ export class User {
   id: ObjectID;
 
   @Column()
-  username: string;
+  @IsNotEmpty() // client-side email verification only
+  email: string;
 
   @Column()
+  @IsNotEmpty()
   password: string;
 
   @Column()
+  @IsNotEmpty()
   firstName: string;
 
   @Column()
+  @IsNotEmpty()
   lastName: string;
 
   @Column()
-  email: string;
+  emailConfirmed: boolean;
 
 }

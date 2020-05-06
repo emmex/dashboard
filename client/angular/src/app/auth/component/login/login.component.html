@@ -1,25 +1,23 @@
 <nb-card>
   <nb-card-body>
-    <div class="container">
+    <div class="form-container">
       <h1>LOGIN</h1>
-      <form class="input-container" #form="ngForm">
+      <form #form="ngForm">
+        <input nbInput fullWidth name="email" type="text" placeholder="Email"
+               [(ngModel)]="user.email" #email=ngModel required>
+        <span class="input-error-notification" *ngIf="!validateInput(email)">Email is required!</span>
         <nb-form-field>
-          <input nbInput fullWidth name="email" type="text" placeholder="Email"
-                 [(ngModel)]="user.email" #email=ngModel required>
-        </nb-form-field>
-        <span class="require-notification" *ngIf="!validateInput(email)">Email is required!</span>
-        <nb-form-field>
-          <input nbInput fullWidth name="password" [type]="getPasswordInputType()" placeholder="Password"
-                 [(ngModel)]="user.password" #password=ngModel required>
-          <button nbSuffix nbButton ghost (click)="toggleShowPassword()">
-            <nb-icon [icon]="getPasswordIcon()" pack="eva"></nb-icon>
+          <input nbInput fullWidth name="password" type="password" placeholder="Password"
+                 [(ngModel)]="user.password" #password=ngModel #passwordInput required>
+          <button type="button" nbSuffix nbButton ghost (click)="toggleShowPassword(passwordInput)">
+            <nb-icon [icon]="getPasswordIcon(passwordInput)" pack="eva"></nb-icon>
           </button>
         </nb-form-field>
-        <span class="require-notification" *ngIf="!validateInput(password)">Password is required!</span>
+        <span class="input-error-notification" *ngIf="!validateInput(password)">Password is required!</span>
         <button class="submitButton" nbButton fullWidth status="primary" (click)="submit()">LOG IN</button>
       </form>
-      <nb-alert *ngIf="showAuthError" status="danger">
-        Incorrect login or password!
+      <nb-alert class="error-alert" status="danger" *ngIf="errorMessage != null">
+        {{errorMessage}}
       </nb-alert>
     </div>
   </nb-card-body>

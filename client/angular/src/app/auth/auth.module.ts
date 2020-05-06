@@ -5,10 +5,10 @@ import {AuthRoutingModule} from './auth-routing.module';
 import {NbAlertModule, NbButtonModule, NbCardModule, NbFormFieldModule, NbIconModule, NbInputModule} from '@nebular/theme';
 import {FormsModule} from '@angular/forms';
 import {AuthService} from './service/auth.service';
-
+import {RegisterComponent} from './component/register/register.component';
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, RegisterComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,
