@@ -1,4 +1,4 @@
-import {Controller, Get, Request, UseGuards} from '@nestjs/common';
+import {Body, Controller, Get, Param, Post, Request, UseGuards} from '@nestjs/common';
 import {AuthenticationGuard} from '../../auth/guard/authentication.guard';
 import {UserService} from '../service/user.service';
 import {UserDto} from '../dto/user.dto';
@@ -13,6 +13,17 @@ export class UserController {
   @Get('/profile')
   async getProfile(@Request() request) {
     return new UserDto(await this.userService.findByEmail(request.user.email));
+  }
+
+  @UseGuards(AuthenticationGuard)
+  @Get('/send-email-confirmation')
+  async sendConfirmEmail(@Request() request) {
+    await this.userService.sendConfirmationEmail(request.user.email);
+  }
+
+  @Post('/confirm-email/:uuid')
+  async confirmEmail(@Param('uuid') uuid, @Body('email') email: string) {
+    await this.userService.confirmEmail(uuid, email);
   }
 
 }

@@ -1,0 +1,16 @@
+<div class="text-center">
+  <div *ngIf="processing">
+    Processing...
+  </div>
+  <nb-alert accent="success" *ngIf="!processing && showSuccessMessage">
+    Email successfully confirmed!
+  </nb-alert>
+  <nb-alert accent="danger" *ngIf="!processing && showErrorMessage">
+    <div>
+      Error has occurred during email confirmation processing:
+    </div>
+    <div>
+      {{errorMessage}}
+    </div>
+  </nb-alert>
+</div>

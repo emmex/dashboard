@@ -1,1 +1,47 @@
-<p>profile works!</p>
+<nb-card>
+  <nb-card-body>
+    <div class="form-group row">
+      <label class="col-form-label col-sm-5 text-secondary">Email</label>
+      <div class="col-sm-7">
+        <div class="form-control-plaintext email-container">
+          <div style="display: inline">
+            <span class="text-monospace">{{user.email}}</span>
+            <nb-icon class="ml-2" *ngIf="user.emailConfirmed" icon="checkmark" status="success"
+                     nbTooltip="Email confirmed" nbTooltipStatus="primary" nbTooltipPlacement="right"></nb-icon>
+          </div>
+          <div style="display: inline" *ngIf="!user.emailConfirmed && !showConfirmationInfo">
+            <button type="button" class="btn btn-link btn-sm" (click)="sendConfirmationRequest()"
+                    [disabled]="emailSending">
+              click here to confirm
+            </button>
+            <span class="spinner-border spinner-border-sm ml-2" *ngIf="emailSending"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="confirmation-info-container" *ngIf="showConfirmationInfo">
+      <nb-card accent="success">
+        <nb-card-header>
+          <nb-icon class="close-alert-icon" icon="close" status="success" (click)="hideConfirmationInfo()"></nb-icon>
+          The letter was sent to the email you specified. Follow the instructions given there.
+        </nb-card-header>
+      </nb-card>
+    </div>
+    <div class="form-group row">
+      <label class="col-form-label col-sm-5 text-secondary">First Name</label>
+      <div class="col-sm-7">
+        <div class="form-control-plaintext">
+          <span class="text-monospace">{{user.firstName}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-form-label col-sm-5 text-secondary">Last Name</label>
+      <div class="col-sm-7">
+        <div class="form-control-plaintext">
+          <span class="text-monospace">{{user.lastName}}</span>
+        </div>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

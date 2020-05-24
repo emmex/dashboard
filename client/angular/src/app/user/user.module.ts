@@ -3,19 +3,22 @@ import {CommonModule} from '@angular/common';
 
 import {UserRoutingModule} from './user-routing.module';
 import {ProfileComponent} from './component/profile/profile.component';
-import {NavigationComponent} from './component/navigation/navigation.component';
-import {NbButtonModule} from '@nebular/theme';
+import {NbAlertModule, NbButtonModule, NbCardModule, NbIconModule, NbSpinnerModule, NbTooltipModule} from '@nebular/theme';
+import {EmailConfirmationComponent} from './component/email-confirmation/email-confirmation.component';
 
 
 @NgModule({
-  declarations: [ProfileComponent, NavigationComponent],
-  exports: [
-    NavigationComponent
-  ],
+  declarations: [ProfileComponent, EmailConfirmationComponent],
+  exports: [],
   imports: [
     CommonModule,
     UserRoutingModule,
-    NbButtonModule
+    NbButtonModule,
+    NbCardModule,
+    NbIconModule,
+    NbTooltipModule,
+    NbAlertModule,
+    NbSpinnerModule
   ]
 })
 export class UserModule {

@@ -1,10 +1,10 @@
-import {IsEmail, IsNotEmpty} from 'class-validator';
-import {Column, Entity, ObjectID, PrimaryGeneratedColumn} from 'typeorm';
+import {IsNotEmpty} from 'class-validator';
+import {Column, Entity, ObjectID, ObjectIdColumn} from 'typeorm';
 
 @Entity()
 export class User {
 
-  @PrimaryGeneratedColumn()
+  @ObjectIdColumn()
   id: ObjectID;
 
   @Column()
@@ -25,5 +25,8 @@ export class User {
 
   @Column()
   emailConfirmed: boolean;
+
+  @Column()
+  emailConfirmationUuid: string;
 
 }

@@ -25,7 +25,7 @@ export class LoginComponent extends AuthFormComponent implements OnInit {
 
   submitInternal() {
     this.authService.login(this.user.email, this.user.password).subscribe(() => {
-      this.router.navigate(['']);
+      this.router.navigate(['profile']);
     }, error => {
       if (error instanceof HttpErrorResponse && error.status === 401) {
         this.errorMessage = 'Incorrect login or password';
