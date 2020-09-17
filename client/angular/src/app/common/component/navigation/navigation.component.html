@@ -1,4 +1,6 @@
+<button nbButton ghost status="primary" *ngIf="isAuthenticated" routerLink="/admin/users">Users</button>
+
 <button nbButton ghost status="primary" *ngIf="!isAuthenticated" routerLink="/login">Sign in</button>
 <button nbButton ghost status="primary" *ngIf="!isAuthenticated" routerLink="/register">Sign up</button>
-<button nbButton ghost status="primary" *ngIf="isAuthenticated" routerLink="/profile">Profile</button>
+<button nbButton ghost status="primary" *ngIf="isAuthenticated" routerLink="/user/profile">Profile</button>
 <button nbButton ghost status="primary" *ngIf="isAuthenticated" (click)="logout()">Logout</button>

@@ -1,13 +1,8 @@
-import {ViewChild} from '@angular/core';
-import {NgForm} from '@angular/forms';
+import {FormComponent} from '../../common/component/form-component';
 
-export abstract class AuthFormComponent {
+export abstract class AuthFormComponent extends FormComponent {
 
-  @ViewChild('form', {static: true})
-  private form: NgForm;
   errorMessage: string;
-
-  abstract submitInternal();
 
   getPasswordIcon(input: HTMLInputElement) {
     return input.type === 'text' ? 'eye-outline' : 'eye-off-2-outline';
@@ -15,20 +10,6 @@ export abstract class AuthFormComponent {
 
   toggleShowPassword(input: HTMLInputElement) {
     input.type === 'text' ? input.type = 'password' : input.type = 'text';
-  }
-
-  validateInput(input: any) {
-    return !(input.invalid && (input.dirty || input.touched));
-  }
-
-  submit() {
-    if (this.form.status === 'VALID') {
-      this.submitInternal();
-    } else {
-      Object.keys(this.form.controls).forEach(key => {
-        this.form.controls[key].markAsDirty();
-      });
-    }
   }
 
 }

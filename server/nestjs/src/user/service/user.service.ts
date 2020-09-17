@@ -11,7 +11,8 @@ import {v4 as v4uuid} from 'uuid';
 @Injectable()
 export class UserService {
 
-  private readonly EMAIL_CONFIRMATION_BASE_URL = 'http://localhost:4200/email-confirmation'
+  // APP_URL = 'http://localhost:4200' for dev
+  private readonly EMAIL_CONFIRMATION_BASE_URL = `${process.env.APP_URL}/user/email-confirmation`
 
   constructor(
     @InjectRepository(User)
@@ -21,22 +22,20 @@ export class UserService {
   }
 
   @Validate()
-  async findByEmail(email: string): Promise<User> {
-    return this.userRepository.findOne({email: email})
+  async getByEmail(email: string): Promise<User> {
+    return this.userRepository.findOne({email: email, isActive: true})
   }
 
   @Validate()
   async register(user: User): Promise<InsertOneWriteOpResult> {
-    const dbUser = await this.userRepository.findOne({email: user.email});
-    if (dbUser != null) {
-      throw new ValidationException([`user with email ${user.email} already exists`])
-    }
+    await this.checkEmailIsUniq(user);
+    user.isActive = true;
     return this.userRepository.insertOne(user);
   }
 
   @Validate()
   async sendConfirmationEmail(email: string): Promise<void> {
-    const dbUser = await this.userRepository.findOne({email: email});
+    const dbUser = await this.userRepository.findOne({email: email, isActive: true});
     if (dbUser == null) {
       throw new ValidationException([`user with email ${email} does not exists`]);
     }
@@ -47,7 +46,7 @@ export class UserService {
     let uuid;
     if (!dbUser.emailConfirmationUuid) {
       uuid = v4uuid();
-      await this.userRepository.updateOne({_id: dbUser.id}, {$set: {emailConfirmationUuid: uuid}});
+      await this.userRepository.updateOne({_id: dbUser._id}, {$set: {emailConfirmationUuid: uuid}});
     } else {
       uuid = dbUser.emailConfirmationUuid;
     }
@@ -66,14 +65,28 @@ export class UserService {
 
   @Validate()
   async confirmEmail(confirmationUuid: string, email: string): Promise<void> {
-    const dbUser = await this.userRepository.findOne({email: email});
+    const dbUser = await this.userRepository.findOne({email: email, isActive: true});
     if (dbUser == null) {
       throw new ValidationException([`user with email ${email} does not exists`]);
     }
     if (dbUser.emailConfirmationUuid == null || dbUser.emailConfirmationUuid != confirmationUuid) {
       throw new ValidationException(['incorrect user identifier'])
     }
-    await this.userRepository.updateOne({_id: dbUser.id}, {$set: {emailConfirmed: true}});
+    await this.userRepository.updateOne({_id: dbUser._id}, {$set: {emailConfirmed: true}, $unset: {emailConfirmationUuid: ''}});
+  }
+
+  async checkEmailIsUniq(user: User) {
+    const byEmail = await this.userRepository.findOne({
+      where:
+        {
+          email: {$eq: user.email},
+          _id: {$not: {$eq: user._id}},
+          isActive: {$eq: true}
+        }
+    });
+    if (byEmail != null) {
+      throw new ValidationException([`user with email ${user.email} already exists`])
+    }
   }
 
 }

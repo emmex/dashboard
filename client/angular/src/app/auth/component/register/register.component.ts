@@ -35,7 +35,7 @@ export class RegisterComponent extends AuthFormComponent implements OnInit {
   submitInternal() {
     this.authService.register(this.user).subscribe(() => {
       this.authService.login(this.user.email, this.user.password).subscribe(() => {
-        this.router.navigate(['profile']);
+        this.router.navigate(['user/profile']);
       });
     }, error => {
       if (error instanceof HttpErrorResponse) {

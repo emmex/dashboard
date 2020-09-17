@@ -1,0 +1,30 @@
+<nb-card>
+  <nb-card-header>{{user.id == null ? 'Add user' : 'Edit user'}}</nb-card-header>
+  <nb-card-body>
+    <div class="form-container">
+      <form #form="ngForm">
+        <input nbInput fullWidth name="firstName" type="text" placeholder="First name"
+               [(ngModel)]="user.firstName" #firstName=ngModel required>
+        <span class="input-error-notification" *ngIf="!validateInput(firstName)">First name is required</span>
+        <input nbInput fullWidth name="lastName" type="text" placeholder="Last name"
+               [(ngModel)]="user.lastName" #lastName=ngModel required>
+        <span class="input-error-notification" *ngIf="!validateInput(lastName)">Last name is required</span>
+        <input nbInput fullWidth name="email" type="text" placeholder="Email"
+               [(ngModel)]="user.email" #email=ngModel required email>
+        <span *ngIf="!validateInput(email)">
+          <span class="input-error-notification" *ngIf="email.errors.required">Email is required</span>
+          <span class="input-error-notification" *ngIf="email.errors.email">Invalid email format</span>
+        </span>
+        <div *ngIf="user.id == null">
+          <input nbInput fullWidth name="password" type="text" placeholder="Password"
+                 [(ngModel)]="user.password" #password=ngModel required>
+          <span class="input-error-notification" *ngIf="!validateInput(password)">Password is required</span>
+        </div>
+      </form>
+    </div>
+  </nb-card-body>
+  <nb-card-footer class="dialog-footer">
+    <button nbButton status="danger" (click)="cancel()">Cancel</button>
+    <button nbButton status="success" (click)="submit()">Save</button>
+  </nb-card-footer>
+</nb-card>

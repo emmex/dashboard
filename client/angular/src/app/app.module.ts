@@ -11,6 +11,8 @@ import {CommonModule} from './common/common.module';
 import {UserModule} from './user/user.module';
 import {AuthModule} from './auth/auth.module';
 import {AuthService} from './auth/service/auth.service';
+import {AdminModule} from './admin/admin.module';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,7 @@ import {AuthService} from './auth/service/auth.service';
     CommonModule,
     AuthModule,
     UserModule,
+    AdminModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -27,12 +30,13 @@ import {AuthService} from './auth/service/auth.service';
     NbThemeModule.forRoot({name: 'default'}),
     NbLayoutModule,
     NbEvaIconsModule,
-    NbButtonModule
+    NbButtonModule,
+    NgbModule
   ],
   providers: [
     {
       provide: APP_INITIALIZER,
-      useFactory: AuthService.currentUserFactory,
+      useFactory: AuthService.sessionFactory,
       deps: [AuthService],
       multi: true
     }],

@@ -1,10 +1,10 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-
 import {UserRoutingModule} from './user-routing.module';
 import {ProfileComponent} from './component/profile/profile.component';
 import {NbAlertModule, NbButtonModule, NbCardModule, NbIconModule, NbSpinnerModule, NbTooltipModule} from '@nebular/theme';
 import {EmailConfirmationComponent} from './component/email-confirmation/email-confirmation.component';
+import {UserService} from './service/user.service';
 
 
 @NgModule({
@@ -19,6 +19,9 @@ import {EmailConfirmationComponent} from './component/email-confirmation/email-c
     NbTooltipModule,
     NbAlertModule,
     NbSpinnerModule
+  ],
+  providers: [
+    UserService
   ]
 })
 export class UserModule {

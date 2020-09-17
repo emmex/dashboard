@@ -8,7 +8,7 @@ export class AuthService {
   }
 
   async validateUser(email: string, pass: string): Promise<any> {
-    const user = await this.usersService.findByEmail(email);
+    const user = await this.usersService.getByEmail(email);
     if (user && user.password === pass) { // use bcrypt
       return {email: user.email};
     }

@@ -6,6 +6,7 @@ import {AuthModule} from './auth/auth.module';
 import {TypeOrmModule} from '@nestjs/typeorm';
 import {CommonModule} from './common/common.module';
 import {ConfigModule} from '@nestjs/config';
+import {AdminModule} from './admin/admin.module';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import {ConfigModule} from '@nestjs/config';
       port: Number.parseInt(process.env.MONGO_PORT),
       database: process.env.MONGO_DB_NAME,
       autoLoadEntities: true,
-    })
+    }),
+    AdminModule
   ],
   controllers: [AppController],
   providers: [AppService],

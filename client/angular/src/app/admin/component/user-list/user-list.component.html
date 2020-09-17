@@ -1,0 +1,44 @@
+<nb-card>
+  <nb-card-body class="px-2 px-md-3">
+    <div class="table-responsive">
+      <ngb-pagination *ngIf="!isEmpty(users?.items) && users.meta.totalPages > 1" [(page)]="pageParams.page" [pageSize]="pageParams.limit"
+                      [collectionSize]="users?.meta.totalItems" (pageChange)="search()"></ngb-pagination>
+      <button class="float-is-right mb-2" nbButton outline status="info" (click)="addEdit()">
+        <nb-icon icon="plus"></nb-icon>
+        Add user
+      </button>
+      <table class="table table-striped">
+        <thead class="thead-dark">
+        <tr>
+          <th>First name</th>
+          <th>Last name</th>
+          <th>Email</th>
+          <th>Email confirmed</th>
+          <th style="min-width: 6.5rem">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of users?.items">
+          <td>{{user.firstName}}</td>
+          <td>{{user.lastName}}</td>
+          <td>{{user.email}}</td>
+          <td>
+            <nb-icon *ngIf="user.emailConfirmed" icon="checkmark" status="success"></nb-icon>
+          </td>
+          <td>
+            <button nbButton ghost (click)="addEdit(user)">
+              <nb-icon icon="edit-2-outline"></nb-icon>
+            </button>
+            <button nbButton ghost (click)="remove(user.id)">
+              <nb-icon icon="trash-2-outline"></nb-icon>
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-center" colspan="5" *ngIf="isEmpty(users?.items)">No users were found</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </nb-card-body>
+</nb-card>

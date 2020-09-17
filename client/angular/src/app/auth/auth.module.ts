@@ -19,6 +19,7 @@ import {RegisterComponent} from './component/register/register.component';
     NbFormFieldModule,
     FormsModule,
     NbAlertModule,
+    CommonModule,
   ],
   providers: [
     AuthService

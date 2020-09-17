@@ -4,6 +4,8 @@
 
 @import "node_modules/bootstrap/scss/bootstrap";
 
+@import '~bootstrap/scss/bootstrap';
+
 @include nb-install() {
   @include nb-theme-global();
 }
@@ -33,5 +35,18 @@ div.form-container {
   .error-alert {
     width: 35rem;
     text-align: center;
+  }
+}
+
+.scrollable-container {
+  min-width: 600px;
+}
+
+nb-card-footer.dialog-footer {
+  display: inline-flex;
+  justify-content: flex-end;
+
+  button + button {
+    margin-left: 1rem;
   }
 }

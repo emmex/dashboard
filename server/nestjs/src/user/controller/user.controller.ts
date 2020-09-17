@@ -1,7 +1,6 @@
-import {Body, Controller, Get, Param, Post, Request, UseGuards} from '@nestjs/common';
+import {Body, ClassSerializerInterceptor, Controller, Get, Param, Post, Request, UseGuards, UseInterceptors} from '@nestjs/common';
 import {AuthenticationGuard} from '../../auth/guard/authentication.guard';
 import {UserService} from '../service/user.service';
-import {UserDto} from '../dto/user.dto';
 
 @Controller('/api/user')
 export class UserController {
@@ -9,10 +8,11 @@ export class UserController {
   constructor(private userService: UserService) {
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @UseGuards(AuthenticationGuard)
   @Get('/profile')
   async getProfile(@Request() request) {
-    return new UserDto(await this.userService.findByEmail(request.user.email));
+    return await this.userService.getByEmail(request.user.email);
   }
 
   @UseGuards(AuthenticationGuard)

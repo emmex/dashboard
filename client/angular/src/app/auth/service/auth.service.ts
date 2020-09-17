@@ -14,7 +14,7 @@ export class AuthService implements OnDestroy {
   constructor(private http: HttpClient) {
   }
 
-  static currentUserFactory = (authService: AuthService) => {
+  static sessionFactory = (authService: AuthService) => {
     return () => authService.checkSession();
   }
 
