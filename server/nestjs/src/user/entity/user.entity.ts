@@ -2,6 +2,7 @@ import {IsNotEmpty} from 'class-validator';
 import {Column, Entity, ObjectIdColumn} from 'typeorm';
 import {ObjectID} from 'mongodb';
 import {Exclude, Expose} from 'class-transformer';
+import {UserRole} from './user-role.entity';
 
 @Entity()
 export class User {
@@ -42,5 +43,20 @@ export class User {
   @Column()
   @Exclude()
   isActive: boolean;
+
+  @Column()
+  roles: UserRole[] = [];
+
+  hasRoles(roles: UserRole[]) {
+    if (this.roles == null || this.roles.length == 0) {
+      return false;
+    }
+    for (let role of roles) {
+      if (!this.roles.includes(role)) {
+        return false;
+      }
+    }
+    return true;
+  }
 
 }
