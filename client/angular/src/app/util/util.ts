@@ -1,7 +1,3 @@
-export class Util {
-
-  static isEmpty(list: unknown[]): boolean {
-    return list == null || list.length === 0;
-  }
-
-}
+export const isEmpty = (list: unknown[]): boolean => {
+  return list == null || list.length === 0;
+};

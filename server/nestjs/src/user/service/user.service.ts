@@ -7,6 +7,7 @@ import {Validate} from '../../util/validation';
 import {ValidationException} from '../../util/exception/validation.exception';
 import {ISendMailOptions, MailerService} from '@nestjs-modules/mailer';
 import {v4 as v4uuid} from 'uuid';
+import {UserRole} from '../entity/user-role.entity';
 
 @Injectable()
 export class UserService {
@@ -87,6 +88,10 @@ export class UserService {
     if (byEmail != null) {
       throw new ValidationException([`user with email ${user.email} already exists`])
     }
+  }
+
+  async rolesList() {
+    return Promise.resolve(Object.values(UserRole));
   }
 
 }

@@ -29,4 +29,8 @@ export class AdminService {
       : this.http.put<void>('/api/admin/add-user', user);
   }
 
+  getRolesList(): Observable<string[]> {
+    return this.http.get<string[]>('/api/admin/roles');
+  }
+
 }

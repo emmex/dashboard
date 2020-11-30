@@ -24,19 +24,27 @@ export class AdminController {
   }
 
   @Delete('/:id')
+  @Roles(UserRole.Admin)
   async removeUser(@Param('id') id: string) {
     await this.adminService.removeUser(id);
   }
 
   @Post('/:id')
+  @Roles(UserRole.Admin)
   async editUser(@Param('id') id: string, @Body() user: User) {
     user._id = new ObjectID(id);
     await this.adminService.editUser(user);
   }
 
   @Put('/add-user')
+  @Roles(UserRole.Admin)
   async addUser(@Body() user: User) {
     await this.userService.register(user);
+  }
+
+  @Get('/roles')
+  async getRolesList() {
+    return await this.userService.rolesList();
   }
 
 }

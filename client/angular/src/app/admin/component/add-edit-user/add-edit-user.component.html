@@ -20,6 +20,12 @@
                  [(ngModel)]="user.password" #password=ngModel required>
           <span class="input-error-notification" *ngIf="!validateInput(password)">Password is required</span>
         </div>
+        <div>
+          <div class="roles-loading" *ngIf="rolesLoading">Loading user roles list...</div>
+          <nb-select *ngIf="!rolesLoading" multiple fullWidth placeholder="Roles" [(selected)]="user.roles">
+            <nb-option *ngFor="let role of roles" [value]="role">{{role}}</nb-option>
+          </nb-select>
+        </div>
       </form>
     </div>
   </nb-card-body>

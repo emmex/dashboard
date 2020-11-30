@@ -3,6 +3,7 @@ import {Column, Entity, ObjectIdColumn} from 'typeorm';
 import {ObjectID} from 'mongodb';
 import {Exclude, Expose} from 'class-transformer';
 import {UserRole} from './user-role.entity';
+import {isEmpty} from '../../util/util';
 
 @Entity()
 export class User {
@@ -48,7 +49,7 @@ export class User {
   roles: UserRole[] = [];
 
   hasRoles(roles: UserRole[]) {
-    if (this.roles == null || this.roles.length == 0) {
+    if (isEmpty(this.roles)) {
       return false;
     }
     for (let role of roles) {

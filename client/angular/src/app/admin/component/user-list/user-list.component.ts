@@ -6,7 +6,7 @@ import {User} from '../../../model/user.model';
 import {NbDialogService} from '@nebular/theme';
 import {ConfirmationDialogComponent} from '../../../common/component/confirmation-dialog/confirmation-dialog.component';
 import {AddEditUserComponent} from '../add-edit-user/add-edit-user.component';
-import {Util} from '../../../util/util';
+import {isEmpty} from 'src/app/util/util';
 
 @Component({
   selector: 'app-user-list',
@@ -17,7 +17,7 @@ export class UserListComponent implements OnInit {
 
   users: Page<User>;
   pageParams: PaginationOptions;
-  isEmpty = Util.isEmpty;
+  isEmpty = isEmpty;
 
   constructor(private route: ActivatedRoute, private router: Router, private adminService: AdminService,
               private dialogService: NbDialogService) {
