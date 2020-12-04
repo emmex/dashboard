@@ -28,3 +28,13 @@
 - Coverage
 - Clean code
 - Clean architecture
+
+## Deployments
+### Required NPM environment variables:
+| Variable | Description | Example |
+|:---:|:---:|:---:|
+| MAILER_HOST | Address of email server | smtp.gmail.com |
+| MAILER_PORT | Port of email server | 465 |
+| MAILER_USER | Email account login | dashboard-admin@gmail.com |
+| MAILER_PASSWORD | Email account password | 1234 |
+| APP_URL | Url that be inserted as application address for email confirmation | http://localhost:4200 |
