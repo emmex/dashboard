@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, ModuleWithProviders, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {LoginComponent} from './component/login/login.component';
 import {AuthRoutingModule} from './auth-routing.module';
@@ -26,4 +26,19 @@ import {RegisterComponent} from './component/register/register.component';
   ]
 })
 export class AuthModule {
+
+  static forRoot(): ModuleWithProviders<AuthModule> {
+    return {
+      ngModule: AuthModule,
+      providers: [
+        {
+          provide: APP_INITIALIZER,
+          useFactory: AuthService.sessionFactory,
+          deps: [AuthService],
+          multi: true
+        }
+      ]
+    };
+  }
+
 }

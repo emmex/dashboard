@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable, Subject} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {User} from '../../model/user.model';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class AuthService implements OnDestroy {
 
   isAuthenticatedChange = new Subject<boolean>();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
   }
 
   static sessionFactory = (authService: AuthService) => {
@@ -21,6 +22,9 @@ export class AuthService implements OnDestroy {
   private checkSession() {
     this.http.get<boolean>('/api/auth/check-session').subscribe(response => {
       this.isAuthenticatedChange.next(response);
+      if (!response) {
+        this.router.navigate(['/login']);
+      }
     });
   }
 
